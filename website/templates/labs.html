@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/labs.css')}}" />
+</head>
+<body>
+    <nav>
+        <ul> <!--Nav bar, any changes to this need to be manually implemented on each file-->
+            <li><a href="{{ url_for('home')}}">Home</a></li>
+            <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/syllabus.pdf" target="_blank">Syllabus</a></li>
+            <li class="dropdown">
+                <a href="{{ url_for('assignment')}}">Assignments</a>
+                <ul class="dropdown-menu">
+                    <li><a href="assignments.html"> All Assignments</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a1/" target="_blank">Assignment 1</a></li>
+                    <li><a href="http://mathlab.utsc.utoronto.ca/courses/cscb20w17/bretsche/assignments/a2/a2.html" target="_blank">Assignment 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a3/a3.html" target="_blank">Assignment 3</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('labs')}}">Labs</a>
+                <ul class="dropdown-menu">
+                    <li><a href="labs.html">All Labs Handouts</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Lab 1</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Lab 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Lab 3</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Lab 4</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Lab 5</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Lab 6</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Lab 7</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Lab 8</a></li>
+                    <li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Lab 9</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('lectureNotes')}}">Lecture Notes</a>
+                <ul class="dropdown-menu">
+                    <li><a href="lce_notes.html">All Lectures</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/lectures/w1.pdf" target="_blank">Lecture 1</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 2</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 3</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 4</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 5</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 6</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 7</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 8</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 9</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 10</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 11</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 12</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('grades')}}">Grades</a></li>
+            <li><a href="{{ url_for('feedback')}}">Anon Feedback</a></li>
+
+            {% if session['type'] == 'instructor' %}
+                    <li><a href="{{ url_for('remarks') }}">Remark Request</a></li>
+            {% endif %}
+            
+            <li><a href="{{ url_for('team')}}">Course Team</a></li>
+
+
+            {% if session['username'] %}
+                <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login')}}">Login</a></li>
+            {% endif %}
+            
+            <div class="dark-mode-container">
+                <label class="dark-mode">
+                    <input type="checkbox" id="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </ul>
+    </nav>
+    
+    <div class="main">
+        <h1>Labs</h1>
+        <p>All the lab handouts:</p>
+        <div class="lab-container"> <!--Contains all the labs, to ensure they are in a 3x3 layout-->
+            <div class="lab-box"> <!--Individual labs-->
+                <h3>Lab 1</h3>
+                <p>Python, Command Line</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Handout</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 2</h3>
+                <p>Relational Algebra</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Handout</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 3</h3>
+                <p>MySQL Intro</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Handout</a>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/university.sql">SQL file</a>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/query_solns.html" target="_blank">Solution</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 4</h3>
+                <p>Creating and Updating Tables</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Handout</a>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/tut4_soln.pdf" target="_blank">Solution</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 5</h3>
+                <p>Views, Joins, Concat</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Handout</a>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/t5_soln.pdf" target="_blank">Solution</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 6</h3>
+                <p>Webpages</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Handout</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 7</h3>
+                <p>Intro to HTML and CSS</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Handout</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 8</h3>
+                <p>Intro to PHP</p>
+                <a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Handout</a>
+            </div>
+
+            <div class="lab-box">
+                <h3>Lab 9</h3>
+                <p>jQuery, only up tp jQuery Remove</p>
+                <a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Handout, w3schools</a>
+            </div>
+        </div>
+    </div>
+
+    <footer> <!--Changes in footer need to be added manually on every file-->
+        <a href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Site designed by the squad, Ashley, William, and Akkinson</p>
+    </footer>
+</body>
+</html>

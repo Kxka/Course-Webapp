@@ -1,0 +1,67 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+
+.main {
+    width: 100%;
+    padding: 40;
+    box-sizing: border-box;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 45px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    padding: 15px;
+}
+
+input {
+    margin: 8px 0;
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    font-family:Arial, sans-serif;
+    padding: 5px;
+    margin: 8px 0;
+}
+
+select, input[type='number']{
+    margin: 8px 0;
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    margin: 30px 0;
+    padding: 15px 30px;
+    background-color: #5459ab;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #3c407b;
+}
+

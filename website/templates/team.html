@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/team.css')}}" />
+</head>
+<body>
+    <nav>
+        <ul> <!--Nav bar, any changes to this need to be manually implemented on each file-->
+            <li><a href="{{ url_for('home')}}">Home</a></li>
+            <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/syllabus.pdf" target="_blank">Syllabus</a></li>
+            <li class="dropdown">
+                <a href="{{ url_for('assignment')}}">Assignments</a>
+                <ul class="dropdown-menu">
+                    <li><a href="assignments.html"> All Assignments</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a1/" target="_blank">Assignment 1</a></li>
+                    <li><a href="http://mathlab.utsc.utoronto.ca/courses/cscb20w17/bretsche/assignments/a2/a2.html" target="_blank">Assignment 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a3/a3.html" target="_blank">Assignment 3</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('labs')}}">Labs</a>
+                <ul class="dropdown-menu">
+                    <li><a href="labs.html">All Labs Handouts</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Lab 1</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Lab 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Lab 3</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Lab 4</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Lab 5</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Lab 6</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Lab 7</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Lab 8</a></li>
+                    <li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Lab 9</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('lectureNotes')}}">Lecture Notes</a>
+                <ul class="dropdown-menu">
+                    <li><a href="lce_notes.html">All Lectures</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/lectures/w1.pdf" target="_blank">Lecture 1</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 2</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 3</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 4</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 5</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 6</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 7</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 8</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 9</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 10</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 11</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 12</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('grades')}}">Grades</a></li>
+            <li><a href="{{ url_for('feedback')}}">Anon Feedback</a></li>
+            {% if session['type'] == 'instructor' %}
+                <li><a href="{{ url_for('remarks') }}">Remark Request</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('team')}}">Course Team</a></li>
+
+            {% if session['username'] %}
+                <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login')}}">Login</a></li>
+            {% endif %}
+            
+            <div class="dark-mode-container">
+                <label class="dark-mode">
+                    <input type="checkbox" id="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </ul>
+    </nav>
+    
+    <div class="main">
+        <h1>Course Team</h1>
+        <div class="container">
+
+            <div class="profile-card">
+                <img class="profile-img" src="/static/teamPics/puvra.png" alt="Profile Picture">
+                <div class="profile-name">Puvra Gawde</div>
+                <div class="profile-description">Course Instructor</div>
+                <div class="profile-email">Email: <a href="mailto:purva.gawde@utoronto.ca">purva.gawde@utoronto.ca</a></div>
+                <div class="profile-office-hours">Office Hours: Mon 11-12, IA4056</div>
+                <div class="profile-tutorial-time">Lectures: Fri 9-11, SW319</div>
+            </div>
+
+            <div class="profile-card">
+                <img class="profile-img" src="/static/teamPics/chill.webp" alt="Profile Picture">
+                <div class="profile-name">First TA</div>
+                <div class="profile-description">Course TA</div>
+                <div class="profile-email">Email: <a href="mailto:TA1.email@random.com">TA1.email@ghost.com</a></div>
+                <div class="profile-office-hours">Office Hours: Wed 12-1, BV423</div>
+                <div class="profile-tutorial-time">Tutorial Time: Mon 12-1, IA3012</div>
+            </div>
+
+            <div class="profile-card">
+                <img class="profile-img" src="/static/teamPics/shock.webp" alt="Profile Picture">
+                <div class="profile-name">Second TA</div>
+                <div class="profile-description">Course TA</div>
+                <div class="profile-email">Email: <a href="mailto:TA2.email@random.com">TA2.email@ghost.com</a></div>
+                <div class="profile-office-hours">Office Hours: Thur 2-3, BV423</div>
+                <div class="profile-tutorial-time">Tutorial Time: Wed 11-12, IA3012</div>
+            </div>
+            
+            <div class="profile-card">
+                <img class="profile-img" src="/static/teamPics/coka.webp" alt="Profile Picture">
+                <div class="profile-name">Third TA</div>
+                <div class="profile-description">Course TA</div>
+                <div class="profile-email">Email: <a href="mailto:TA.email@random.com">TA3.email@ghost.com</a></div>
+                <div class="profile-office-hours">Office Hours: Fri 12-1, BV423</div>
+                <div class="profile-tutorial-time">Tutorial Time: Wed 2-3, IA3012</div>
+            </div>
+            
+            <div class="profile-card">
+                <img class="profile-img" src="/static/teamPics/fly.webp" alt="Profile Picture">
+                <div class="profile-name">Fourth TA</div>
+                <div class="profile-description">Course TA</div>
+                <div class="profile-email">Email: <a href="mailto:TA4.email@random.com">TA4.email@ghost.com</a></div>
+                <div class="profile-office-hours">Office Hours: Tue 2-3, BV423</div>
+                <div class="profile-tutorial-time">Tutorial Time: Fri 1-2, IA3012</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer> <!--Changes in footer need to be added manually on every file-->
+        <a href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Site designed by the squad, Ashley, William, and Akkinson</p>
+    </footer>
+</body>
+</html>

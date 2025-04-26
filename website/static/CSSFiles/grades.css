@@ -1,0 +1,191 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+table {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+th {
+    background-color: #e0dddd;
+    font-weight: bold;
+}
+
+h3 {
+    display: block;
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.table-container {
+    margin-top: 40px;
+}
+
+input[type="submit"] {
+    padding: 8px 20px;
+    color: white;
+    background-color: #5459ab;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #3c407b;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 1.5%;
+    text-align: left;
+}
+
+select {
+    width: 35%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-left: -10px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.select-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #5459ab;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: auto;
+}
+
+.select-btn:hover {
+    background-color: #33ebff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #cdcdd1;
+    color: black;
+    font-weight: bold;
+    border: none;
+}
+
+
+.enter-marks {
+    margin: 25px 0;
+}
+
+.enter-marks-btn {
+    background-color: #bdbdc5;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.flashes {
+    margin: 10px 0;
+    top: 60px;
+    left: 220px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    opacity: 0.9;
+    color: black;
+    position: fixed;
+    font-weight: bold;
+    z-index: 1000;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease-out;
+    background-color: rgb(225, 225, 225);
+}
+
+
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        max-width: none;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Make form inputs take full width */
+    input[type="text"], select, .select-btn, input[type="submit"] {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: 10px 0;
+    }
+
+    .select-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    label {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    /* Adjust padding of buttons on small screens */
+    input[type="submit"], .select-btn {
+        padding: 10px;
+    }
+}

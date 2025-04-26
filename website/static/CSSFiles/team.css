@@ -1,0 +1,147 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.profile-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #5459ab;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #5459ab;
+}
+
+.profile-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.profile-description {
+    font-size: 1em;
+    color: #5459ab;
+    margin-bottom: 10px;
+}
+
+.profile-office-hours, .profile-tutorial-time, .profile-email {
+    font-size: 0.9em;
+    color: black;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.profile-email a {
+    color: #0d83f2;
+    text-decoration: none;
+}
+
+.profile-email a:hover {
+    text-decoration: underline;
+}
+
+:root{
+    --bg: white;
+    --text: black;
+    --primary: #5459ab;
+}
+
+body{
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body:has(#darkMode:checked){
+    --bg: black;
+    --text: black;
+    --primary: #abaef6;
+}
+
+.dark-mode{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--text);
+    padding-right: -30px;
+    white-space: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+
+}
+
+.dark-mode input{
+    display: none;
+}
+
+.slider{
+    display: inline-block;
+    width: 50px;
+    height: 25px; 
+    background-color: #3c407b;
+    border-radius: 34px;
+    position: relative;
+    transition: background-color 0.4s;
+    margin: 0;
+    padding: 0;
+}
+
+.slider:before{
+    position: absolute;
+    content: "";
+    height: 18px; 
+    width: 18px;
+    background-color: white;
+    border-radius: 50%;
+    left: 4px; 
+    bottom: 3px;
+    transition: 0.4s;
+}
+
+input:checked + .slider{
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before{
+    transform: translateX(24px);
+}
+

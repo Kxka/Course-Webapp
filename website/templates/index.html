@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+</head>
+<body>
+    <nav>
+        <ul> <!--Nav bar, any changes to this need to be manually implemented on each file-->
+            {% if session['username'] %}
+                <li><a href="{{ url_for('home')}}">Home</a></li>
+                <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/syllabus.pdf" target="_blank">Syllabus</a></li>
+                <li class="dropdown">
+                    <a href="{{ url_for('assignment')}}">Assignments</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="assignments.html"> All Assignments</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a1/" target="_blank">Assignment 1</a></li>
+                        <li><a href="http://mathlab.utsc.utoronto.ca/courses/cscb20w17/bretsche/assignments/a2/a2.html" target="_blank">Assignment 2</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a3/a3.html" target="_blank">Assignment 3</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('labs')}}">Labs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="labs.html">All Labs Handouts</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Lab 1</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Lab 2</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Lab 3</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Lab 4</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Lab 5</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Lab 6</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Lab 7</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Lab 8</a></li>
+                        <li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Lab 9</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('lectureNotes')}}">Lecture Notes</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="lce_notes.html">All Lectures</a></li>
+                        <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/lectures/w1.pdf" target="_blank">Lecture 1</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 2</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 3</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 4</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 5</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 6</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 7</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 8</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 9</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 10</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 11</a></li>
+                        <li><a href="Yup.pdf" target="_blank">Lecture 12</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('grades')}}">Grades</a></li>
+                <li><a href="{{ url_for('feedback')}}">Anon Feedback</a></li>
+
+                {% if session['type'] == 'instructor' %}
+                    <li><a href="{{ url_for('remarks') }}">Remark Request</a></li>
+                {% endif %}
+
+                <li><a href="{{ url_for('team')}}">Course Team</a></li>
+                <li><a href="{{ url_for('logout')}}">Logout</a></li>
+                <div class="dark-mode-container">
+                    <label class="dark-mode">
+                        <input type="checkbox" id="darkMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            {% endif %}
+        </ul>
+    </nav>
+    
+    <div class="main">
+        {% with messages = get_flashed_messages() %}    
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <!--Course intro-->
+        <div class="course-intro">
+            <h1>Welcome to CSCB20 Winter 2025!</h1>
+            <p>This course provides a hands-on introduction to databases and web application development. You will gain both theoretical knowledge and practical skills to build a solid foundation in these areas.</p>
+        
+            <h2>What You’ll Learn:</h2>
+            
+            <h3>Databases:</h3>
+            <ul>
+                <li>Key terminology and practical applications</li>
+                <li>Creating, querying, and updating databases</li>
+                <li>Designing databases using the entity-relationship model</li>
+            </ul>
+        
+            <h3>Web Development:</h3>
+            <ul>
+                <li>Building static and interactive web documents</li>
+                <li>Setting up web servers and generating dynamic, server-side content</li>
+                <li>Developing web applications integrated with databases</li>
+            </ul>
+        
+            <p>We’re excited to have you in the course and look forward to helping you develop valuable skills in databases and web development!</p>
+        </div>
+
+        <!--News tab-->
+        <div class="news-section">
+            <h1>News</h1>
+            <p>Stay tuned for important course updates and announcements.</p>
+        </div>
+
+        <!--Term tests-->
+        <div class="test-section">
+            <h1>Term tests</h1>
+            <p>Here is the midterm term schedule and arrangements</p>
+            <img src="../teamPics/tests.png">
+        </div>
+
+        <!--Calendar-->
+        <div class="calendar-section">
+            <h1>Course Calendar</h1>
+            <iframe src="https://calendar.google.com/calendar/embed?src=062btcpe6ukskfptv62jsc7sug@group.calendar.google.com&ctz=America/Toronto" 
+                    style="border: 0" width="800" height="600" frameborder="0" scrolling="no">
+            </iframe>
+        </div>
+    </div>
+    
+    <footer> <!--Changes in footer need to be added manually on every file-->
+        <a href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Site designed by the squad, Ashley, William, and Akkinson</p>
+    </footer>
+</body>
+</html>

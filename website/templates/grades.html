@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grades</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/grades.css')}}" />
+</head>
+<body>
+    <nav>
+        <ul> <!--Nav bar, any changes to this need to be manually implemented on each file-->
+            <li><a href="{{ url_for('home')}}">Home</a></li>
+            <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/syllabus.pdf" target="_blank">Syllabus</a></li>
+            <li class="dropdown">
+                <a href="{{ url_for('assignment')}}">Assignments</a>
+                <ul class="dropdown-menu">
+                    <li><a href="assignments.html"> All Assignments</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a1/" target="_blank">Assignment 1</a></li>
+                    <li><a href="http://mathlab.utsc.utoronto.ca/courses/cscb20w17/bretsche/assignments/a2/a2.html" target="_blank">Assignment 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a3/a3.html" target="_blank">Assignment 3</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('labs')}}">Labs</a>
+                <ul class="dropdown-menu">
+                    <li><a href="labs.html">All Labs Handouts</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Lab 1</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Lab 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Lab 3</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Lab 4</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Lab 5</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Lab 6</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Lab 7</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Lab 8</a></li>
+                    <li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Lab 9</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('lectureNotes')}}">Lecture Notes</a>
+                <ul class="dropdown-menu">
+                    <li><a href="lce_notes.html">All Lectures</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/lectures/w1.pdf" target="_blank">Lecture 1</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 2</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 3</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 4</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 5</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 6</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 7</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 8</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 9</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 10</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 11</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 12</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('grades')}}">Grades</a></li>
+            <li><a href="{{ url_for('feedback')}}">Anon Feedback</a></li>
+            {% if session['type'] == 'instructor' %}
+            <li><a href="{{ url_for('remarks') }}">Remark Request</a></li>
+            {% endif %}
+
+            <li><a href="{{ url_for('team')}}">Course Team</a></li>
+
+
+            {% if session['username'] %}
+                <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login')}}">Login</a></li>
+            {% endif %}
+            
+            <div class="dark-mode-container">
+                <label class="dark-mode">
+                    <input type="checkbox" id="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </ul>
+    </nav>
+
+    <div class="main">
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for category, message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% if session['type'] == 'student' %}
+            <h2>Welcome, {{ username }}! Here are your grades:</h2>
+            <h3>Assignments</h3>
+            <table>
+                <tr>
+                    <th>Assignment</th>
+                    <th>Mark</th>
+                    <th>Remark requests</th>
+                    <th>Remark status</th>
+                </tr>
+                <tr>
+                    <td>Assignment 1</td>
+                    <td>{{ grades.assign1 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="assign1">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'assign1' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Assignment 2</td>
+                    <td>{{ grades.assign2 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="assign2">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'assign2' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Assignment 3</td>
+                    <td>{{ grades.assign3 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="assign3">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'assign3' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Midterm Exam</h3>
+            <table>
+                <tr>
+                    <th>Exam</th>
+                    <th>Mark</th>
+                    <th>Remark requests</th>
+                    <th>Remark status</th>
+                </tr>
+                <tr>
+                    <td>Midterm</td>
+                    <td>{{ grades.midterm }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="midterm">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'midterm' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Labs</h3>
+            <table>
+                <tr>
+                    <th>Lab</th>
+                    <th>Mark</th>
+                    <th>Remark requests</th>
+                    <th>Remark status</th>
+                </tr>
+                <tr>
+                    <td>Lab 1</td>
+                    <td>{{ grades.lab1 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="lab1">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'lab1' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lab 2</td>
+                    <td>{{ grades.lab2 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="lab2">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'lab2' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lab 3</td>
+                    <td>{{ grades.lab3 }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="lab3">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'lab3' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Final Exam</h3>
+            <table>
+                <tr>
+                    <th>Exam</th>
+                    <th>Mark</th>
+                    <th>Remark requests</th>
+                    <th>Remark status</th>
+                </tr>
+                <tr>
+                    <td>Final</td>
+                    <td>{{ grades.exam }}</td>
+                    <td>
+                        <form action="{{ url_for('grades') }}" method="POST">
+                            <input type="hidden" name="assignment" value="final">
+                            <input type="text"  name="reason" placeholder="Reason and question"> 
+                            <button type="submit">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% set found = false %}
+                        {% for remark in remarkrequests %}
+                            {% if remark.case_name == 'final' %}
+                                {{ remark.status }}
+                                {% set found = true%}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        
+        {% elif session['type'] == 'instructor' %}
+            <h2>All Students Marks</h2>
+
+            <div class="enter-marks">
+                <a href="{{ url_for('entermarks') }}">
+                    <button class="enter-marks-btn">Enter Marks</button>
+                </a>
+            </div>
+
+            <h3>Assignment 1</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.assign1 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Assignment 2</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.assign2 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Assignment 3</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades%}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.assign3 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Midterm</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.midterm }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Lab 1</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.lab1 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Lab 2</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.lab2 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Lab 3</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.lab3 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Final Exam</h3>
+            <table>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark</th>
+                </tr>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.username }}</td>
+                    <td>{{ grade.grades.exam }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+    <footer>
+        <a href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Site designed by the squad, Ashley, William, and Akkinson</p>
+    </footer>
+</body>
+</html>

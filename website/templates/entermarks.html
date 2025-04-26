@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/entermarks.css')}}" />
+</head>
+<body>
+    <div class="main">
+        <h2>Enter Student Marks</h2>
+        <form action="{{ url_for('entermarks') }}" method="POST">
+            <label for="student_username">Select Student:</label>
+            <input list="students" id="student_username" name="student_username" placeholder="Enter or select student name">
+            <datalist id="students">
+                {% for student in students %}
+                    <option value="{{ student.username }}"></option>
+                {% endfor %}
+            </datalist>
+            <label for="assignment">Select Assignment/Exam:</label>
+            <select name="assignment" id="assignment">
+                <option value="">Select Assignment/Exam</option>
+                <option value="assign1">Assignment1</option>
+                <option value="assign2">Assignment2</option>
+                <option value="assign3">Assignment3</option>
+                <option value="lab1">Lab1</option>
+                <option value="lab2">Lab2</option>
+                <option value="lab3">Lab3</option>
+                <option value="midterm">Midterm Exam</option>
+                <option value="exam">Final Exam</option>
+            </select>
+
+            <label for="mark">Enter Marks:</label>
+            <input type="number" id="mark" name="mark" min="0" max="100" placeholder="Enter marks">
+
+            <button class="submit-btn" type="submit">Submit</button>
+            <div id="mark-message"></div>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/style.js') }}"></script>
+</body>
+</html>

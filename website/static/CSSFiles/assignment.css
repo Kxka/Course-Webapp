@@ -1,0 +1,70 @@
+.assignment-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.assignment-box {
+    border: 3px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    background: #f4f4f4;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.assignment-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.assignment-content p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.assignment-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.assignment-links a {
+    display: block;
+    padding: 10px;
+    background-color: #5459ab;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.assignment-links a:hover {
+    background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .assignment-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .assignment-box {
+        width: 90%;
+        height: auto;
+    }
+}

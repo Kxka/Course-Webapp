@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/index.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='CSSFiles/feedback.css')}}" />
+</head>
+<body>
+    <nav>
+        <ul> <!--Nav bar, any changes to this need to be manually implemented on each file-->
+            <li><a href="{{ url_for('home')}}">Home</a></li>
+            <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/syllabus.pdf" target="_blank">Syllabus</a></li>
+            <li class="dropdown">
+                <a href="{{ url_for('assignment')}}">Assignments</a>
+                <ul class="dropdown-menu">
+                    <li><a href="assignments.html"> All Assignments</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a1/" target="_blank">Assignment 1</a></li>
+                    <li><a href="http://mathlab.utsc.utoronto.ca/courses/cscb20w17/bretsche/assignments/a2/a2.html" target="_blank">Assignment 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/assignments/a3/a3.html" target="_blank">Assignment 3</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('labs')}}">Labs</a>
+                <ul class="dropdown-menu">
+                    <li><a href="labs.html">All Labs Handouts</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t1/" target="_blank">Lab 1</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t2/relational.pdf" target="_blank">Lab 2</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t3/index.html" target="_blank">Lab 3</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t4/handout.pdf" target="_blank">Lab 4</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t5/handout.pdf" target="_blank">Lab 5</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t7/handout.pdf" target="_blank">Lab 6</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t8/" target="_blank">Lab 7</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/tutorials/t9/" target="_blank">Lab 8</a></li>
+                    <li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp" target="_blank">Lab 9</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="{{ url_for('lectureNotes')}}">Lecture Notes</a>
+                <ul class="dropdown-menu">
+                    <li><a href="lce_notes.html">All Lectures</a></li>
+                    <li><a href="https://www.utsc.utoronto.ca/~bretscher/b20/lectures/w1.pdf" target="_blank">Lecture 1</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 2</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 3</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 4</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 5</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 6</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 7</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 8</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 9</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 10</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 11</a></li>
+                    <li><a href="Yup.pdf" target="_blank">Lecture 12</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('grades')}}">Grades</a></li>
+            <li><a href="{{ url_for('feedback')}}">Anon Feedback</a></li>
+            {% if session['type'] == 'instructor' %}
+            <li><a href="{{ url_for('remarks') }}">Remark Request</a></li>
+            {% endif %}
+
+            <li><a href="{{ url_for('team')}}">Course Team</a></li>
+
+            {% if session['username'] %}
+                <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login')}}">Login</a></li>
+            {% endif %}
+            
+            <div class="dark-mode-container">
+                <label class="dark-mode">
+                    <input type="checkbox" id="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </ul>
+    </nav>
+    
+    <div class="main">
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for category, message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% if session['type'] == 'student' %}
+        <div class="input-section">
+            <h2>Submit Your Anonymous Feedback</h2>
+            <form action="{{ url_for('feedback') }}" method="POST">
+                <label for="instructor_id">Who was your instructor?</label><br>
+                <select id="instructor_id" name="instructor_id" required>
+                    <option value="">Select an instructor</option>
+                    {% for instructor in instructors %}
+                        <option value="{{ instructor.id }}"> {{ instructor.username }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <label for="feedback1">What do you like about the instructor's teaching?</label><br>
+                <textarea id="feedback1" name="feedback1" rows="4" cols="50" placeholder="Write your feedback here..."></textarea><br><br>
+
+                <label for="feedback2">What do you recommend the instructor to do to improve their teaching?</label><br>
+                <textarea id="feedback2" name="feedback2" rows="4" cols="50" placeholder="Write your feedback here..."></textarea><br><br>
+
+                <label for="feedback3">What do you like about the labs?</label><br>
+                <textarea id="feedback3" name="feedback3" rows="4" cols="50" placeholder="Write your feedback here..."></textarea><br><br>
+
+                <label for="feedback4">What do you recommend the lab instructors to do to improve their lab teaching?</label><br>
+                <textarea id="feedback4" name="feedback4" rows="4" cols="50" placeholder="Write your feedback here..."></textarea><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        {% endif %}
+
+        {% if session['type'] == 'instructor' %}
+            <h2>View Anonymous Feedback</h2>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Feedback1</th>
+                        <th>Feedback2</th>
+                        <th>Feedback3</th>
+                        <th>Feedback4</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for feedback in feedbacks %}
+                    <tr>
+                        <td>{{ feedback.feedback1 }}</td>
+                        <td>{{ feedback.feedback2 }}</td>
+                        <td>{{ feedback.feedback3 }}</td>
+                        <td>{{ feedback.feedback4 }}</td>
+                        <td>
+                            <form action="{{ url_for('feedback') }}" method="POST">
+                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                {% if feedback.feedback_status == 'open' %}
+                                    <input type="hidden" name="status" value="reviewed">
+                                    <button type="submit" class="status-btn open">Open </button>
+                                {% else %}
+                                    <input type="hidden" name="status" value="open">
+                                    <button type="submit" class="status-btn reviewed">Reviewed</button>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </div>
+    <footer> <!--Changes in footer need to be added manually on every file-->
+        <a href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Site designed by the squad, Ashley, William, and Akkinson</p>
+    </footer>
+</body>
+</html>
+
+
