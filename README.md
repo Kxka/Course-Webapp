@@ -16,3 +16,11 @@
 - View anonymous feedback left for them
 - Manage remark requests 
 - Update student marks
+
+## Requirements
+Python packages:
+- Flask
+- Flask-Bcrypt
+- Flask-SQLAlchemy
+- SQLAlchemy
+- bcrypt
